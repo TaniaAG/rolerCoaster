@@ -2,6 +2,7 @@
 #include <pthread.h>
 #include <semaphore.h>
 #include <stdbool.h>
+#include <unistd.h>
 
 sem_t groupSem, singleSem;
 
@@ -13,18 +14,20 @@ int semValue(sem_t semaphore){
 
 void *groupQueue(void *ptr){
     sem_post(&groupSem);
-
+    sleep(1);
 
 }
 
 void *singleQueue(void *ptr){
     sem_post(&singleSem);
+    sleep(2);
 
 }
 
 void *rolerCoaster(void *ptr) {
     if (semValue(&groupSem) > 0) {
         printf("%d ", semValue(groupSem));
+        
 
     }
 }
